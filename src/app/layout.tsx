@@ -59,6 +59,20 @@ export const metadata: Metadata = {
   },
 };
 
+const jsonLd = {
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  name: "ShiftClaw",
+  url: siteUrl,
+  logo: `${siteUrl}/logo.png`,
+  description:
+    "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
+  sameAs: [
+    "https://x.com/ShiftClawCO",
+    "https://github.com/ShiftClawCO",
+  ],
+};
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -66,6 +80,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >

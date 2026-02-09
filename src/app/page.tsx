@@ -1,7 +1,8 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { ThemeToggle } from "@/components/theme-toggle"
-import { ArrowRight, Zap, Users, Bot, Mail } from "lucide-react"
+import { MobileNav } from "@/components/mobile-nav"
+import { ArrowRight, Zap, Users, Bot, Mail, FileText, Github, MessageCircle } from "lucide-react"
 import Link from "next/link"
 
 export default function Home() {
@@ -11,7 +12,7 @@ export default function Home() {
       <header className="border-b">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-2xl">🦞</span>
+            <span className="text-2xl">🦀</span>
             <span className="font-bold text-xl">ShiftClaw</span>
           </div>
           <div className="flex items-center gap-4">
@@ -26,7 +27,10 @@ export default function Home() {
                 Contact
               </a>
             </nav>
-            <ThemeToggle />
+            <div className="hidden md:block">
+              <ThemeToggle />
+            </div>
+            <MobileNav />
           </div>
         </div>
       </header>
@@ -42,8 +46,8 @@ export default function Home() {
             Tools that ship fast
           </h1>
           <p className="text-xl text-muted-foreground max-w-2xl mx-auto mb-8">
-            We build SaaS products that solve real problems. 
-            One founder, one AI agent, zero bureaucracy.
+            We build SaaS products that solve real problems.
+            One founder, a team of AI agents, zero bureaucracy.
           </p>
           <div className="flex items-center justify-center gap-4">
             <Button size="lg" asChild>
@@ -79,8 +83,8 @@ export default function Home() {
                 </div>
                 <CardTitle>RetroShift</CardTitle>
                 <CardDescription>
-                  Run better retrospectives. Async-friendly, real-time collaboration, 
-                  actionable insights for your team.
+                  Async retrospectives with anonymous voting, AI-powered summaries,
+                  multi-language support (EN/IT), and a Pro tier with advanced features.
                 </CardDescription>
               </CardHeader>
               <div className="px-6 pb-6">
@@ -89,6 +93,32 @@ export default function Home() {
                     Try it free
                     <ArrowRight className="ml-2 h-4 w-4" />
                   </Link>
+                </Button>
+              </div>
+            </Card>
+
+            {/* NovaDocs */}
+            <Card className="relative overflow-hidden">
+              <div className="absolute top-3 right-3">
+                <span className="px-2 py-1 text-xs font-medium bg-yellow-500/10 text-yellow-500 rounded-full">
+                  In Development
+                </span>
+              </div>
+              <CardHeader>
+                <div className="flex items-center gap-3 mb-2">
+                  <div className="p-2 rounded-lg bg-primary/10">
+                    <FileText className="h-6 w-6 text-primary" />
+                  </div>
+                </div>
+                <CardTitle>NovaDocs</CardTitle>
+                <CardDescription>
+                  AI-powered documentation Q&A — upload docs, ask questions,
+                  get cited answers with voice interface. Powered by Amazon Nova AI.
+                </CardDescription>
+              </CardHeader>
+              <div className="px-6 pb-6">
+                <Button variant="outline" className="w-full" disabled>
+                  Coming soon
                 </Button>
               </div>
             </Card>
@@ -108,7 +138,7 @@ export default function Home() {
                 </div>
                 <CardTitle className="text-muted-foreground">Next Project</CardTitle>
                 <CardDescription>
-                  We&apos;re always building. Follow us to be the first to know 
+                  We&apos;re always building. Follow us to be the first to know
                   about our next tool.
                 </CardDescription>
               </CardHeader>
@@ -129,13 +159,14 @@ export default function Home() {
             <h2 className="text-3xl font-bold mb-6 text-center">About</h2>
             <div className="prose prose-lg dark:prose-invert mx-auto">
               <p className="text-muted-foreground text-center text-lg leading-relaxed">
-                ShiftClaw is an indie studio run by <strong>Dodo</strong>, a software engineer 
-                with a decade of experience building products, and <strong>Claw</strong>, an AI agent 
-                that never sleeps.
+                ShiftClaw is an indie studio run by <strong>Dodo</strong>, a software engineer
+                with a decade of experience building products, and <strong>Seb</strong>, an AI agent
+                leading a team of specialized AI agents — each focused on development, QA, marketing,
+                UX, and DevOps.
               </p>
               <p className="text-muted-foreground text-center text-lg leading-relaxed mt-4">
-                We believe great software doesn&apos;t need big teams. With the right tools and 
-                relentless focus, a small team can outship anyone. We build tools we&apos;d use 
+                We believe great software doesn&apos;t need big teams. With the right tools and
+                relentless focus, a small team can outship anyone. We build tools we&apos;d use
                 ourselves, price them fairly, and ship fast.
               </p>
               <div className="flex items-center justify-center gap-8 mt-8 text-center">
@@ -145,8 +176,8 @@ export default function Home() {
                 </div>
                 <div className="text-2xl text-muted-foreground">+</div>
                 <div>
-                  <div className="text-3xl font-bold">1</div>
-                  <div className="text-sm text-muted-foreground">AI Agent</div>
+                  <div className="text-3xl font-bold">6</div>
+                  <div className="text-sm text-muted-foreground">AI Agents</div>
                 </div>
                 <div className="text-2xl text-muted-foreground">=</div>
                 <div>
@@ -180,11 +211,42 @@ export default function Home() {
         <div className="container mx-auto px-4">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-2">
-              <span className="text-xl">🦞</span>
+              <span className="text-xl">🦀</span>
               <span className="font-semibold">ShiftClaw</span>
             </div>
+            <div className="flex items-center gap-4">
+              <a
+                href="https://x.com/ShiftClawCO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="X (Twitter)"
+              >
+                <svg className="h-4 w-4" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z" />
+                </svg>
+              </a>
+              <a
+                href="https://discord.gg/shiftclawco"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="Discord"
+              >
+                <MessageCircle className="h-4 w-4" />
+              </a>
+              <a
+                href="https://github.com/ShiftClawCO"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-muted-foreground hover:text-foreground transition-colors"
+                aria-label="GitHub"
+              >
+                <Github className="h-4 w-4" />
+              </a>
+            </div>
             <p className="text-sm text-muted-foreground">
-              © {new Date().getFullYear()} ShiftClaw. Built with 💻 and 🤖
+              © {new Date().getFullYear()} ShiftClawCO. Built with 💻 and 🤖
             </p>
           </div>
         </div>

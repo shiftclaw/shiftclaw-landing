@@ -167,3 +167,8 @@ Seb or the cron system provides:
 3. **Complete**: `gh issue comment <N> --repo <repo> --body "🐳 **Whale** — Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "🐳 **Whale** — PASS/FAIL: <verdict>"`
 
 **No silent work.** If you touched an issue, it must show in the issue comments.
+
+### GitHub Tagging Rule
+- **NEVER** use @mentions for agent names (@coral, @ink, @spike, @anchor, @whale, @pearl) — these are real GitHub users
+- Only tag: @shiftclaw (Dodo) or @xdodocodex (Dodo alt)
+- Reference agents by plain text name or label only

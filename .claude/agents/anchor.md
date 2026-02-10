@@ -229,3 +229,13 @@ Seb or the cron system provides:
 3. **Complete**: `gh issue comment <N> --repo <repo> --body "⚓ **Anchor** — Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "⚓ **Anchor** — PASS/FAIL: <verdict>"`
 
 **No silent work.** If you touched an issue, it must show in the issue comments.
+
+### GitHub Tagging Rule
+- **NEVER** use @mentions for agent names (@coral, @ink, @spike, @anchor, @whale, @pearl) — these are real GitHub users
+- Only tag: @shiftclaw (Dodo) or @xdodocodex (Dodo alt)
+- Reference agents by plain text name or label only
+
+### GitHub API Conservation
+- Minimize gh CLI calls — cache results, avoid redundant queries
+- Never loop gh commands without sleep 1-2s between calls
+- Before intensive gh operations, run: $SEB_MIND/scripts/gh-rate-check.sh --min 50

@@ -9,7 +9,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-background">
       {/* Header */}
-      <header className="border-b">
+      <header className="border-b" role="banner">
         <div className="container mx-auto px-4 h-16 flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-2xl">🦀</span>
@@ -35,6 +35,7 @@ export default function Home() {
         </div>
       </header>
 
+      <main>
       {/* Hero */}
       <section className="py-24 md:py-32">
         <div className="container mx-auto px-4 text-center">
@@ -205,6 +206,8 @@ export default function Home() {
           </Button>
         </div>
       </section>
+
+      </main>
 
       {/* Footer */}
       <footer className="border-t py-8">

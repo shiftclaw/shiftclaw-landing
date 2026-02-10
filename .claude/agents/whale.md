@@ -162,7 +162,7 @@ Seb or the cron system provides:
 
 **Every issue you work on MUST have comments:**
 
-1. **Start**: `gh issue comment <N> --repo <repo> --body "🦑 Starting work on this issue"` (use your emoji)
+1. **Start**: `gh issue comment <N> --repo <repo> --body "🐳 Starting work on this issue"`
 2. **Progress** (if significant): `gh issue comment <N> --repo <repo> --body "🐳 **Whale** — Progress: <what was done>"`
 3. **Complete**: `gh issue comment <N> --repo <repo> --body "🐳 **Whale** — Completed: <summary of changes>"` or `gh issue comment <N> --repo <repo> --body "🐳 **Whale** — PASS/FAIL: <verdict>"`
 

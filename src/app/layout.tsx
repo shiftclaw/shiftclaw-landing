@@ -6,11 +6,13 @@ import { ThemeProvider } from "@/components/theme-provider";
 const geistSans = Geist({
   variable: "--font-geist-sans",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
   subsets: ["latin"],
+  display: "swap",
 });
 
 const siteUrl = "https://shiftclawco.com";
@@ -36,23 +38,11 @@ export const metadata: Metadata = {
     title: "ShiftClaw — Tools that ship fast",
     description:
       "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
-    images: [
-      {
-        url: "/og-image.png",
-        width: 1200,
-        height: 630,
-        alt: "ShiftClaw — Tools that ship fast",
-      },
-    ],
   },
   twitter: {
     card: "summary_large_image",
     site: "@ShiftClawCO",
     creator: "@ShiftClawCO",
-    title: "ShiftClaw — Tools that ship fast",
-    description:
-      "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
-    images: ["/og-image.png"],
   },
   icons: {
     icon: "/favicon.ico",
@@ -64,7 +54,7 @@ const jsonLd = {
   "@type": "Organization",
   name: "ShiftClaw",
   url: siteUrl,
-  logo: `${siteUrl}/logo.png`,
+  logo: `${siteUrl}/favicon.ico`,
   description:
     "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
   sameAs: [

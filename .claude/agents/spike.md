@@ -106,46 +106,41 @@ When picking an issue for review:
 
 When reviewing an Ink issue in To Review:
 
-**You are in the feature worktree** (same directory Ink used). You can:
-- Run `npm run build` and `npm test` to verify the code works
-- Run Playwright tests: `npx playwright test`
-- **Write new tests** (unit, E2E, regression) and commit them to the feature branch
-- Push test additions to the same branch before merging
-
 1. **Read the issue**: understand requirements and acceptance criteria
-2. **Build and test**:
+2. **Read the diff**:
    ```bash
-   npm run build          # Must pass
-   npm test 2>/dev/null   # Run existing tests
-   npx playwright test 2>/dev/null  # Run E2E if configured
+   git log --oneline dev..feature/<N>-<desc>
+   git diff dev..feature/<N>-<desc>
    ```
-3. **Read the diff**:
-   ```bash
-   git diff dev..HEAD
-   ```
-4. **Write missing tests**: If the feature lacks tests, create them:
-   - Unit tests in `__tests__/` or alongside the source file
-   - E2E tests in `e2e/` for user-facing features
-   - Commit: `git add -A && git commit -m "test: add tests for #<N>" && git push`
-5. **Review checklist**:
-   - [ ] Functionality: does the code do what the issue asks?
-   - [ ] Build: `npm run build` passes
-   - [ ] Tests: existing tests pass + adequate coverage for new code
+3. **Review checklist**:
+   - [ ] **🚨 FUNCTIONAL TEST (MANDATORY — DO THIS FIRST)**: 
+     - Run `npm run build` — if it fails, automatic FAIL
+     - Start dev server: `npm run dev` and navigate to the page where the feature should appear
+     - **VERIFY THE FEATURE IS VISIBLE AND USABLE**. Not just that code exists — that it RENDERS on screen.
+     - A component file that exists but isn't imported/used on any page = FAIL
+     - A new route that 404s = FAIL
+     - A form field that should appear but doesn't render = FAIL
+     - **If you cannot see and interact with the feature in the browser, it's a FAIL. No exceptions.**
+     - Take note of what you verified: "Navigated to /create, identity toggle visible, clicked anonymous/named, worked"
+   - [ ] **Files actually exist**: `ls` the new files. Previous issues were "completed" with zero code written. If the issue says "implement icebreakers" and there are no icebreaker files → FAIL.
+   - [ ] Functionality: does the code do what the issue asks? Read the AC line by line.
    - [ ] Security: no secrets, no injection vectors, proper auth checks
    - [ ] Performance: no N+1 queries, no unnecessary re-renders, proper caching
    - [ ] Accessibility: semantic HTML, ARIA labels, keyboard navigation
+   - [ ] Tests: adequate coverage for new code
    - [ ] Conventions: conventional commits, proper file structure
    - [ ] Edge cases: error handling, empty states, boundary conditions
-4. **Comment with review using this MANDATORY template**:
-   ```markdown
-   ## Review #N — [PASS|FAIL]
-   **Files reviewed**: X files
-   **Checklist**: ✅ Functionality | ✅ Security | ✅ Tests | ✅ Performance | ✅ Conventions
-   **Summary**: One-line verdict
-   **Details**: (if FAIL) Specific issues with fix suggestions
-   ```
+4. **Comment with detailed analysis AND proof of functional verification** on the issue:
    ```bash
-   gh issue comment <N> --body "<review using template above>"
+   gh issue comment <N> --body "🦔 Review #N
+   
+   ## Functional test
+   - Navigated to /path — feature X visible ✅ (or ❌)
+   - Clicked Y — result Z ✅ (or ❌)
+   - Build: passes ✅
+   
+   ## Code review
+   <point-by-point review>"
    ```
 
 ### Completion — Review verdict
@@ -155,25 +150,14 @@ When reviewing an Ink issue in To Review:
 The code meets all quality criteria:
 
 ```bash
-# 1. Merge the feature branch PR into dev (squash merge)
-PR_NUM=$(gh pr list --head feature/<N>-<slug> --json number --jq '.[0].number')
-if [ -n "$PR_NUM" ]; then
-  gh pr merge "$PR_NUM" --squash --delete-branch
-else
-  # No PR — merge branch manually
-  git checkout dev && git merge feature/<N>-<slug> --no-edit && git push origin dev
-  git branch -d feature/<N>-<slug> 2>/dev/null
-  git push origin --delete feature/<N>-<slug> 2>/dev/null
-fi
-
-# 2. Move issue to Ready
+# Move issue to Ready
 /Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <N> "Ready"
 
-# 3. Comment verdict
-gh issue comment <N> --body "🦔 PASS — <reason for approval>. Merged to dev."
+# Comment verdict
+gh issue comment <N> --body "🦔 PASS — <reason for approval, what was done well>"
 
-# 4. Log event
-./scripts/log-event.sh '{"agent":"spike","type":"review_pass","project":"<project>","issue":<N>,"detail":"Code review passed, merged to dev"}'
+# Log event
+./scripts/log-event.sh '{"agent":"spike","type":"review_pass","project":"<project>","issue":<N>,"detail":"Code review passed"}'
 ```
 
 #### FAIL

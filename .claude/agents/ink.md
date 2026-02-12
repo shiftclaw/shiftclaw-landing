@@ -70,27 +70,16 @@ gh issue list --label ink --state open --json number,title,state,labels,body,com
 ### Pick work
 
 Priority order:
-1. **Issue In Progress with Spike FAIL comment** -> read Spike's feedback, run `maintain-spec`, rework on SAME branch
-2. **Issue In Progress without FAIL** -> continue implementation on existing branch
+1. **Issue In Progress with Spike FAIL comment** -> read Spike's feedback, run `maintain-spec`, rework
+2. **Issue In Progress without FAIL** -> continue implementation
 3. **Issue in Todo** -> pick highest priority, move to In Progress
 4. **No issues** -> if cron Friday, run tech debt scan; otherwise idle
 
 When picking a new issue:
 ```bash
 /Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <ISSUE_NUMBER> "In Progress"
-# Create feature branch
-git checkout dev && git pull origin dev
-git checkout -b feature/<N>-<short-slug>
-gh issue comment <N> --body "🦑 Starting work — branch: feature/<N>-<short-slug>"
+gh issue comment <N> --body "🦑 Starting work — branch: feature/<N>-<desc>"
 ./scripts/log-event.sh '{"agent":"ink","type":"task_start","project":"<project>","issue":<N>}'
-```
-
-When reworking after Spike FAIL:
-```bash
-# Reuse existing branch — do NOT create a new one
-git checkout feature/<N>-<short-slug>
-git pull origin feature/<N>-<short-slug> 2>/dev/null || true
-gh issue comment <N> --body "🦑 Reworking — addressing Spike feedback"
 ```
 
 ### During work
@@ -115,17 +104,31 @@ gh issue comment <N> --body "🦑 Reworking — addressing Spike feedback"
 When implementation is done:
 
 1. Verify build passes: `npm run build`
-2. **Quality gate** (duplication + vulnerability check):
+2. **🚨 MANDATORY: Functional verification** — You MUST verify the feature works in the browser before declaring done:
+   ```bash
+   # Start dev server if not running
+   npm run dev &
+   sleep 5
+   
+   # Navigate to the page where the feature should appear
+   # Take a screenshot as proof:
+   npx playwright test --project=demo-auth -g "Feature Demo" 2>/dev/null || true
+   ```
+   - **Open the actual page** where the feature lives. Not just build — SEE IT.
+   - If the feature involves a UI component, verify it RENDERS on the page. A component file that exists but isn't imported/rendered = NOT DONE.
+   - If the feature involves a new route (e.g. `/mood`), verify the route responds with actual content, not 404.
+   - **If you can't verify it works visually, it's not done.** Period.
+   - Comment on the issue with what you verified:
+     ```bash
+     gh issue comment <N> --body "🦑 Verified: navigated to /path, feature X is visible and functional. Build passes."
+     ```
+3. **Quality gate** (duplication + vulnerability check):
    ```bash
    $SEB_MIND/scripts/quality-gate.sh $(pwd)
    ```
-   - Se FAIL: leggi il report, fixa i problemi di duplicazione codice o vulnerabilita dipendenze
+   - Se FAIL: leggi il report, fixa i problemi
    - Ripeti quality gate fino a PASS
-   - Commenta issue:
-     ```bash
-     gh issue comment <N> --body "🦑 Quality gate passed — no duplication/vulnerability issues"
-     ```
-3. Commit with conventional commit + issue ref:
+4. Commit with conventional commit + issue ref:
    ```bash
    git commit -m "feat(<scope>): <description>
 
@@ -133,17 +136,15 @@ When implementation is done:
 
    closes #<N>"
    ```
-4. Push and create PR:
+5. Push and create PR if needed:
    ```bash
-   git push origin feature/<N>-<short-slug>
-   # Create PR only if one doesn't exist for this branch
-   gh pr list --head feature/<N>-<short-slug> --json number | grep -q number || \
-     gh pr create --title "feat(<scope>): <description>" --body "closes #<N>" --base dev
+   git push origin feature/<N>-<desc>
+   gh pr create --title "feat(<scope>): <description>" --body "closes #<N>" --base dev
    ```
-5. Move issue to To Review:
+6. Move issue to To Review:
    ```bash
    /Users/shiftclaw/.openclaw/workspace/scripts/gh-move-card.sh <PROJECT_NUMBER> <N> "To Review"
-   gh issue comment <N> --body "🦑 Ready for review — <summary of changes>"
+   gh issue comment <N> --body "🦑 Ready for review — <summary of changes>. Verified working at /path."
    ```
 6. Chain-spawn Spike for review:
    ```bash

@@ -1,0 +1,15 @@
+{
+  "hooks": {
+    "PostToolUse": [
+      {
+        "matcher": "Read|Grep|Glob|LS|View|Cat",
+        "hooks": [
+          {
+            "type": "command",
+            "command": "/Users/shiftclaw/Desktop/ShiftClawCo/seb-mind/scripts/agent-watchdog.sh"
+          }
+        ]
+      }
+    ]
+  }
+}

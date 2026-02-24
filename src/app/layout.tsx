@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
+import { SITE_URL } from "@/lib/constants";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -15,14 +16,12 @@ const geistMono = Geist_Mono({
   display: "swap",
 });
 
-const siteUrl = "https://shiftclawco.com";
-
 export const metadata: Metadata = {
   title: "ShiftClaw — Tools that ship fast",
   description:
     "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
   keywords: ["indie", "saas", "tools", "ai", "startup", "shiftclaw"],
-  metadataBase: new URL(siteUrl),
+  metadataBase: new URL(SITE_URL),
   alternates: {
     canonical: "/",
   },
@@ -33,7 +32,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     locale: "en_US",
-    url: siteUrl,
+    url: SITE_URL,
     siteName: "ShiftClaw",
     title: "ShiftClaw — Tools that ship fast",
     description:
@@ -53,8 +52,8 @@ const jsonLd = {
   "@context": "https://schema.org",
   "@type": "Organization",
   name: "ShiftClaw",
-  url: siteUrl,
-  logo: `${siteUrl}/favicon.ico`,
+  url: SITE_URL,
+  logo: `${SITE_URL}/favicon.ico`,
   description:
     "An indie studio where human creativity meets AI execution. Building SaaS tools that solve real problems.",
   sameAs: [

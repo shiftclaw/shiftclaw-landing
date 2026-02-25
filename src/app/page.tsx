@@ -4,6 +4,7 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { MobileNav } from "@/components/mobile-nav"
 import { XIcon } from "@/components/icons/x-icon"
 import { ArrowRight, Zap, Users, Bot, Mail, FileText, Github, MessageCircle } from "lucide-react"
+import { XIcon } from "@/components/icons/x-icon"
 import Link from "next/link"
 
 export default function Home() {

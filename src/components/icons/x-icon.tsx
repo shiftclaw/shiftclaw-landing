@@ -1,12 +1,13 @@
 import type { SVGProps } from "react"
 
-export function XIcon({
-  size = 24,
-  className,
-  ...props
-}: SVGProps<SVGSVGElement> & { size?: number }) {
+interface XIconProps extends SVGProps<SVGSVGElement> {
+  size?: number | string
+}
+
+export function XIcon({ size = 24, className, ...props }: XIconProps) {
   return (
     <svg
+      xmlns="http://www.w3.org/2000/svg"
       width={size}
       height={size}
       viewBox="0 0 24 24"

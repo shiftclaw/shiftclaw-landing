@@ -17,6 +17,7 @@ Static-first Next.js 16 App Router site. Server Components exclusively — no cl
 | Icons | Lucide | Consistent with other ShiftClaw projects | 2025-Q4 |
 | Font | Geist (Next.js default) | Clean, modern, no extra font loading | 2025-Q4 |
 | UI library | Radix UI | Accessible primitives underlying shadcn/ui components | 2025-Q4 |
+| Database | None | Static site — no DB, no Convex, no API routes | 2025-Q4 |
 
 ## 4. Patterns & Conventions
 

@@ -1,1 +1,0 @@
-/Users/shiftclaw/Desktop/ShiftClawCo/seb-mind/.claude/agents/whale.md

@@ -12,3 +12,5 @@ npm run build   # verify build
 - Development rules: @.claude/rules/
 - Team agents: @.claude/agents/
 - Detailed instructions: @.claude/CLAUDE.md
+
+#Test
